@@ -1,0 +1,11 @@
+export const API_BASE_URL = 'http://localhost:8080';
+export const ACCESS_TOKEN_NAME = 'login_access_token';
+export const LIST_TYPE ='x_list_type';
+export const USER_ID = 'user_id';
+export const strDBName ='xtrStructure';
+export const objDBName ='xtrObject';
+export const X_ID ='x_id';
+export const U_ID ='u_id';
+export const XU_ID = 'xu_id';
+export const U_TYPE ='u_type';
+export const CDNURL ='https://storage.googleapis.com/xttribute_app/';

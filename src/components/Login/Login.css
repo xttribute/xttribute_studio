@@ -1,0 +1,28 @@
+.loginText {
+    color: #198754;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.successMessage {
+    color: green;
+    font-weight: bold;
+}
+.mt-2 {
+	width: -webkit-fill-available;
+}
+.btn-login {
+	padding: 15px 80px !important;
+	--bs-btn-bg: #75b798 !important;
+	--bs-btn-border-color: #198754 !important;
+	--bs-btn-hover-bg: #198754 !important;
+	--bs-btn-hover-border-color: #198754 !important;
+	--bs-btn-font-size: 2rem !important;
+}
+.google-login-wrapper {
+  max-width: 900px;
+  width: 100%;
+  margin-left: 0;
+  margin-right: auto;
+  padding: 0;
+}

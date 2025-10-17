@@ -1,0 +1,18 @@
+.editable-input {
+  height: 38px;
+  width: 100%;
+}
+.editable-textarea {
+  height: 150px;
+  overflow-y: auto;
+}
+
+.editable-textarea-keynote {
+  height: 100px;
+  text-align:left;
+  overflow-y: auto;
+}
+
+.textBold{
+	font-weight: bold;
+}
