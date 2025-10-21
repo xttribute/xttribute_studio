@@ -26,6 +26,8 @@ function Logout(props) {
     }
 	destoryToken();
 	destoryUserID();
+	if (props.setUName) props.setUName(null); // Clear uName in App.js
+	if (props.setProfileImage) props.setProfileImage(null); // Clear profile image in App.js
 	useEffect(()=>{
 	 setListType("public");
 	}, []); 

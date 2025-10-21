@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Container, Row, Col } from "reactstrap";
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
-import Header from "./components/Header";
+// import Header from "./components/Header";
 import './App.css';
 import Registration from "./components/Registration/RegistrationForm";
 import Login from "./components/Login/Login";
@@ -9,6 +9,8 @@ import Logout from "./components/Login/Logout";
 import AlertComponent from './components/AlertComponent/AlertComponent'; 
 import Xttribute from './components/Xttribute/Xttribute';  
 import Xttributes from './components/Xttribute/Xttributes';
+import RightSidebar from './components/Layout/RightSidebar';
+import Photo from './components/Photo/Photo';
 import 'bootstrap/dist/css/bootstrap.min.css';
 function App(props) {
 	const [title, updateTitle] = useState(null);
@@ -16,6 +18,9 @@ function App(props) {
 	 const [bg, changeBG] =useState();
 	 const [id, showID] = useState(null);
 	 const [menu, showMenu] = useState(null);
+	 const [rightSidebarExpanded, setRightSidebarExpanded] = useState(false);
+	 const [uName, setUName] = useState(null);
+	 const [profileImage, setProfileImage] = useState(null);
 	 //const { id } = useUserSession();
 	 //const [uid, showUID] = useState(null);
 
@@ -29,6 +34,7 @@ function App(props) {
 
 	  return <Outlet />; // Render the child routes
 	};
+	 const toggleRightSidebar = () => setRightSidebarExpanded(expanded => !expanded);
 	return(
 		<div class="css-bg-example-1">
 		  <div class="demo-wrap">
@@ -39,8 +45,8 @@ function App(props) {
 		      alt=""
 		    />*/}
 		  <div class="demo-content">
-	   <Header userID={id} showUID ={showID} menu={menu} showMenu={showMenu}/>
-		<main className="my-5">
+		{/* <Header userID={id} showUID ={showID} menu={menu} showMenu={showMenu}/> */}
+		<main className="my-5" style={{marginRight: rightSidebarExpanded ? 200 : 60}}>
 		     <Container className="px-0 mainBody">
 			 <Row>
 			 <AlertComponent errorMessage={errorMessage} hideError={updateErrorMessage}/>
@@ -52,16 +58,27 @@ function App(props) {
 		         >
 				 <Routes>
 				 		<Route path="/registration" element={<Registration showError={updateErrorMessage} updateTitle={updateTitle}/>}  />
-						<Route path="/login" element={<Login showID = {showID} showError={updateErrorMessage} updateTitle={updateTitle}/>}  />
-						<Route path="/logout" element={<Logout showID ={showID} showError={updateErrorMessage} updateTitle={updateTitle}/>} />
+						<Route path="/login" element={<Login showID = {showID} showError={updateErrorMessage} updateTitle={updateTitle} setUName={setUName} setProfileImage={setProfileImage}/>}  />
+						<Route path="/logout" element={<Logout showID ={showID} showError={updateErrorMessage} updateTitle={updateTitle} setUName={setUName} setProfileImage={setProfileImage}/>} />
 						   <Route path="/xttribute" element={<Xttribute showError={updateErrorMessage} updateTitle={updateTitle} changeBG={changeBG}/>} />
 							<Route path="/xttributes" element={<Xttributes showError={updateErrorMessage} updateTitle={updateTitle}/>} />
+							<Route path="/photos" element={<Photo />} />
 					</Routes>
 		         </Col>
 	
 		       </Row>
 		     </Container>
 		   </main>
+		   <RightSidebar
+                        expanded={rightSidebarExpanded}
+                        onToggle={toggleRightSidebar}
+                        userID={id}
+                        menu={menu}
+						showUID ={showID}showMenu={showMenu}
+						uName={uName}
+						profileImage={profileImage}
+	
+                    />
 		   </div>
 		  </div>
 		  </div>

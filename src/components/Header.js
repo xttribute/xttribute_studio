@@ -1,7 +1,5 @@
-import logo from '../medias/images/xttribute_logo.png';
 import avatar from '../medias/images/avatar.png';
 import { useNavigate } from 'react-router-dom';
-import parse from 'html-react-parser';
 
 import {
   Container, Row, Col, Form, Input, Button, Navbar, Nav,
@@ -46,7 +44,7 @@ function Header(props) {
 		        <Row g-0 className="position-relative w-100 align-items-center">
 					<Col className="d-flex justify-content-xs-start">
 				          <NavbarBrand className="d-inline-block p-0" href="/" style={{ width: 80 }}>
-				            <img src={logo} alt="logo" className="position-relative img-fluid app-logo" />
+				            {/* Logo moved to sidebar */}
 				          </NavbarBrand>
 				    </Col>
 				        
@@ -57,22 +55,7 @@ function Header(props) {
 							
 							  
 					</NavItem>
-		{/*
-		              <NavItem className="d-flex align-items-center">
-		                <NavLink className="font-weight-bold" href="/">
-		                  <img src={avatar} alt="avatar" className="img-fluid rounded-circle" style={{ width: 60 }} />
-		                </NavLink>
-		              </NavItem>
-		*/}
-		              <UncontrolledDropdown className="d-flex align-items-center" nav inNavbar>
-		                <DropdownToggle className="font-weight-bold" nav caret>     <img src={avatar} alt="avatar" className="img-fluid rounded-circle" style={{ width: 60 }} /></DropdownToggle>
-		                <DropdownMenu end>
-		                 {logMenu}
-		                  <DropdownItem divider />
-		                 {xttributeMenu}
-		                </DropdownMenu>
-		              </UncontrolledDropdown>
-		
+		              {/* NavItem and UncontrolledDropdown moved to RightSidebar */}
 		            </Nav>
 		          </Col>
 		

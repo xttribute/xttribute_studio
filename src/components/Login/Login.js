@@ -17,6 +17,7 @@ function Login(props) {
 	const {setUserID } = useUserSession();
 	const {setUID} = useUserSession();
 	const {setUType} = useUserSession();
+	const {setUName} = useUserSession();
 	const navigate = useNavigate();
     const [state , setState] = useState({
         email : "",
@@ -50,11 +51,13 @@ function Login(props) {
 						}
 						else{
 							setUID(response.data.object._id);
-							setUType(response.data.object.type);
-							setUserID(state.email);
-							props.showError(null);
-							props.showID(state.email);
-							setState(prevState => ({
+                            setUType(response.data.object.type);
+                            setUserID(state.email);
+                            setUName(response.data.object.name);
+                            if (props.setUName) props.setUName(response.data.object.name);
+                            props.showError(null);
+                            props.showID(state.email);
+                            setState(prevState => ({
 							...prevState,
 							'successMessage' : 'Login successfully!'
 							}))
@@ -98,6 +101,7 @@ function Login(props) {
             console.log(decoded);
             const email = decoded.email;
             const name = decoded.name || decoded.given_name || '';
+            const profileImage = decoded.picture || null;
             if (!email) {
                 props.showError('Google account did not return an email.');
                 return;
@@ -117,26 +121,27 @@ function Login(props) {
                     const newUserPayload = {
                         dbName: strDBName,
                         collName: 'user',
-                        docContents: `{'email':'${email}','name':'${name}', 'source':'google','type':'xtttributee'}`,
+                        docContents: `{'email':'${email}','name':'${name}', 'source':'google','type':'xtttributee','profileImage':'${profileImage || ''}'}`,
                         uKey: 'email'
                     };
                     const createResponse = await axios.post(`${API_BASE_URL}/newObject`, newUserPayload);
                     if (createResponse.status === 200 && createResponse.data.doc_201 === 'Document created') {
-						setUID(response.data.object._id);
-						setUType(response.data.object.type);
-						setUserID(email);
+                        setUID(createResponse.data.object._id);
+                        setUType(createResponse.data.object.type);
+                        setUName(name);
+                        setUserID(email);
+                        if (props.setUName) props.setUName(name);
+                        if (props.setProfileImage) props.setProfileImage(profileImage);
                         props.showError(null);
                         props.showID(email);
                         setState(prevState => ({
                             ...prevState,
                             successMessage: 'Account created and logged in successfully!'
                         }));
-                       // redirectToHome();
                     } else {
                         props.showError('Failed to create new user for this Google account.');
                     }
                 } 
-				
 				else {
 					if(response.data.object.source !=='google' ){
                         props.showError("Email already registered via "+response.data.object.source+" account, Please use that to log in.");
@@ -146,6 +151,9 @@ function Login(props) {
                     setUID(response.data.object._id);
 					setUType(response.data.object.type);
                     setUserID(email);
+					setUName(response.data.object.name);
+                    if (props.setUName) props.setUName(response.data.object.name);
+                    if (props.setProfileImage) props.setProfileImage(response.data.object.profileImage || profileImage);
                     props.showError(null);
                     props.showID(email);
                     setState(prevState => ({

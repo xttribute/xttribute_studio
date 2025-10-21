@@ -4,11 +4,9 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import ResizePanel from '../ResizePanel/ResizePanel';
 import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
-import PhotoLibraryOutlinedIcon from '@mui/icons-material/PhotoLibraryOutlined';
 import PropTypes from 'prop-types';
 import './AppMenu.css';
 import Keynote from "../Keynote/Keynote";
-import Photo from "../Photo/Photo";
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -56,23 +54,13 @@ function AppMenu(props){
 		      allowScrollButtonsMobile
 		      aria-label="scrollable force tabs example"
 		    >
-		<Tab  icon={<PhotoLibraryOutlinedIcon  fontSize="medium"/>} label="Photos" {...a11yProps(0)}/>
-		 <Tab  icon={<SummarizeOutlinedIcon  fontSize="medium"/>} label="Keynotes" {...a11yProps(1)}/>
+		 <Tab  icon={<SummarizeOutlinedIcon  fontSize="medium"/>} label="Keynotes" {...a11yProps(0)}/>
 		
 		</Tabs>
 		</Box>
 		<CustomTabPanel value={value} index={0}>
-		<Photo
-				showError = {props.showError}
-				editable ={props.editable}
-		/>
-		     </CustomTabPanel>
-			 <CustomTabPanel value={value} index={1}>
-			 <Keynote
-			 		 showError = {props.showError}
-			 		 editable ={props.editable}
-			 		 />
-			 </CustomTabPanel>
+          <Keynote />
+        </CustomTabPanel>
 		</Box>
 	);
 }

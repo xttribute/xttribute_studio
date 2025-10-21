@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {USER_ID,U_ID,U_TYPE} from '../../constants/apiConstants';
+import {USER_ID,U_ID,U_TYPE,U_NAME} from '../../constants/apiConstants';
 import Cookies from 'js-cookie';
 
 export default function useUserSession() {
@@ -20,6 +20,7 @@ export default function useUserSession() {
 		Cookies.remove(USER_ID);
 		Cookies.remove(U_ID);
 		Cookies.remove(U_TYPE);
+		Cookies.remove(U_NAME);
 	};
 	
 	const getUID = () =>{
@@ -42,6 +43,16 @@ export default function useUserSession() {
         Cookies.set(U_TYPE, uType, { expires: 7 });
         setUType(uType);
     };
+	const getUName = () =>{
+			const u_name = Cookies.get(U_NAME);
+			const uName = u_name;
+			return uName
+	};
+		const [uName, setUName] = useState(getUName());
+	    const saveUName = uName => {
+	        Cookies.set(U_NAME, uName, { expires: 7 });
+	        setUName(uName);
+	  };
 
 	return {
 		setUserID: saveUserID,
@@ -50,6 +61,8 @@ export default function useUserSession() {
 		setUID: saveUID,
 		uid,
 		setUType: saveUType,
-        uType
+        uType,
+		setUName: saveUName,
+		uName
 	}
 }
