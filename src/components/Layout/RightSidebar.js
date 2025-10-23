@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import avatar from '../../medias/images/avatar.png';
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import useUserSession from '../User/useUserSession';
 import { useNavigate } from 'react-router-dom';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
@@ -9,19 +8,18 @@ import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDo
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import Avatar from '@mui/material/Avatar';
 import BorderStyleOutlinedIcon from '@mui/icons-material/BorderStyleOutlined';
-import useHeader from '../useHeader';
 
 function RightSidebar({ expanded, onToggle, userID, uName, profileImage }) {
     const { id } = useUserSession();
     const navigate = useNavigate();
-    const isLoggedIn = userID != null || id != null;
-    // Helper to get first letter of uName
+    // If uName/profileImage are passed in props (persisted by App) we want to show them
+    // even if the userID/session id is not available (page refresh). Also try localStorage fallback.
+    const persistedName = uName || (typeof window !== 'undefined' && localStorage.getItem('uName')) || null;
+    const persistedProfile = profileImage || (typeof window !== 'undefined' && localStorage.getItem('profileImage')) || null;
+    const isLoggedIn = Boolean(userID || id || persistedName || persistedProfile);
+    // Helper to get first letter of persistedName
     const getInitial = (name) => name ? name.charAt(0).toUpperCase() : '';
-	const publicXttributes =() => {
-		   setListType("public");
-		   navigate('xttributes');
-		}
-		const {setListType} = useHeader();
+	
     return (
         <div
             className={`right-sidebar${expanded ? ' expanded' : ''}`}
@@ -46,19 +44,19 @@ function RightSidebar({ expanded, onToggle, userID, uName, profileImage }) {
             {/* Avatar image always on top of expand button */}
             <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 10 }}>
                 {isLoggedIn ? (
-                    profileImage ? (
-                        <img src={profileImage} alt="profile" className="img-fluid rounded-circle" style={{ width: 50, height: 50, objectFit: 'cover' }} />
+                    persistedProfile ? (
+                        <img src={persistedProfile} alt="profile" className="img-fluid rounded-circle" style={{ width: 50, height: 50, objectFit: 'cover' }} />
                     ) : (
                         <Avatar style={{ width: 50, height: 50, fontSize: 24, background: '#90caf9', color: '#fff' }}>
-                            {getInitial(uName)}
+                            {getInitial(persistedName)}
                         </Avatar>
                     )
                 ) : (
                     <img src={avatar} alt="avatar" className="img-fluid rounded-circle" style={{ width: 50 }} />
                 )}
-                {expanded && isLoggedIn && uName && (
+                {expanded && isLoggedIn && persistedName && (
                     <div style={{ marginTop: 8, fontWeight: 'bold', fontSize: 14, color: '#333', textAlign: 'center', wordBreak: 'break-word' }}>
-                        {uName}
+                        {persistedName}
                     </div>
                 )}
             </div>
@@ -114,13 +112,13 @@ function RightSidebar({ expanded, onToggle, userID, uName, profileImage }) {
             <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 20 }}>
                 <div
                     style={{ padding: expanded ? '10px 20px' : '10px 0', cursor: 'pointer', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}
-                    onClick={publicXttributes}
+                    onClick={() => navigate('xttributes')}
                 >
                     <div>
                         <BorderStyleOutlinedIcon style={{ fontSize: expanded ? 24 : 20, color: '#333' }} />
                     </div>
                     {expanded && (
-                        <div style={{ fontSize: 13, marginTop: 2 }}>Xttributes</div>
+                        <div style={{ fontSize: 13, marginTop: 2 }}>My Xttributes</div>
                     )}
                 </div>
             </div>
