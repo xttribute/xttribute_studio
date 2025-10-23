@@ -34,32 +34,6 @@ function Xttributes(props){
 					console.log(error);
 				});    
 			}		
-			else{
-							const payload={
-								"dbName": objDBName,
-								"collName": "xttribute",
-								"docContents": "none",
-								"operator" : "none",
-								"returnType": "list",
-								"sortBy": "_id",
-								"limit": 9,
-								"order": "ASC"
-								}
-							axios.post(API_BASE_URL+'/getObjects?page=1', payload, )
-							.then(function (response) {
-								if(response.status === 200){			
-									if(response.data.doc_302=== 'Document matched'){
-										 setRecords(response.data.objects);
-									}                 
-								} else{
-									props.showError("Oops! system error, it is on us, we are working on it!");
-								}
-							})
-							.catch(function (error) {
-								console.log(error);
-							});    
-			}
-			
 			
 		}
 		useEffect(()=>{

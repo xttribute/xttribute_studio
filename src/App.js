@@ -19,10 +19,42 @@ function App(props) {
 	 const [id, showID] = useState(null);
 	 const [menu, showMenu] = useState(null);
 	 const [rightSidebarExpanded, setRightSidebarExpanded] = useState(false);
-	 const [uName, setUName] = useState(null);
-	 const [profileImage, setProfileImage] = useState(null);
-	 //const { id } = useUserSession();
-	 //const [uid, showUID] = useState(null);
+	 // persisted user display info (name and profile image)
+	 const [uName, setUNameState] = useState(null);
+	 const [profileImage, setProfileImageState] = useState(null);
+
+	// handlers that update state and persist into localStorage so values survive page reload
+	const setUName = (name) => {
+		if (name === null || name === undefined) {
+			setUNameState(null);
+			localStorage.removeItem('uName');
+		} else {
+			setUNameState(name);
+			localStorage.setItem('uName', name);
+		}
+	};
+
+	const setProfileImage = (src) => {
+		if (src === null || src === undefined) {
+			setProfileImageState(null);
+			localStorage.removeItem('profileImage');
+		} else {
+			setProfileImageState(src);
+			localStorage.setItem('profileImage', src);
+		}
+	};
+
+	// initialize from localStorage on mount
+	useEffect(() => {
+		try {
+			const storedName = localStorage.getItem('uName');
+			const storedProfile = localStorage.getItem('profileImage');
+			if (storedName) setUNameState(storedName);
+			if (storedProfile) setProfileImageState(storedProfile);
+		} catch (e) {
+			console.warn('Unable to access localStorage', e);
+		}
+	}, []);
 
 	 document.title = title;
 
@@ -35,9 +67,9 @@ function App(props) {
 	  return <Outlet />; // Render the child routes
 	};
 	 const toggleRightSidebar = () => setRightSidebarExpanded(expanded => !expanded);
-	return(
-		<div class="css-bg-example-1">
-		  <div class="demo-wrap">
+ 	return(
+ 		<div class="css-bg-example-1">
+ 		  <div class="demo-wrap">
 		 {/*
 		   <img
 		      class="demo-bg"
@@ -70,19 +102,19 @@ function App(props) {
 		     </Container>
 		   </main>
 		   <RightSidebar
-                        expanded={rightSidebarExpanded}
-                        onToggle={toggleRightSidebar}
-                        userID={id}
-                        menu={menu}
+                         expanded={rightSidebarExpanded}
+                         onToggle={toggleRightSidebar}
+                         userID={id}
+                         menu={menu}
 						showUID ={showID}showMenu={showMenu}
 						uName={uName}
 						profileImage={profileImage}
-	
-                    />
+ 
+                     />
 		   </div>
 		  </div>
 		  </div>
   );
-};
-
-export default App;
+ };
+ 
+ export default App;
