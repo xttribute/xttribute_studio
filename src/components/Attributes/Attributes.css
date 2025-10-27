@@ -1,0 +1,131 @@
+.attributes-root{
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.attributes-root h3{
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  color: #222;
+}
+
+.attributes-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.attribute-item{
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  border-radius: 6px;
+  background: #f7f9fb;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.attribute-item .attribute-name{
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 6px;
+}
+
+.attribute-item .attribute-value{
+  color: #374151;
+  font-size: 14px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Compact row layout for wider screens */
+@media (min-width: 768px){
+  .attribute-item{
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .attribute-item .attribute-name{
+    margin-bottom: 0;
+    margin-right: 16px;
+  }
+  .attribute-item .attribute-value{
+    flex: 1;
+    text-align: right;
+  }
+}
+
+/* Inline styles moved from Attributes.js */
+.attributes-new-pair {
+  margin-bottom: 12px;
+}
+
+.attribute-pair {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.attribute-remove-btn {
+  color: #6b7280; /* gray-500 */
+  margin-left: 15px; /* ensure trashcan sits 15px to the right of the previous icon */
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+.attribute-remove-btn:hover, .attribute-remove-btn:focus {
+  color: #374151; /* gray-700 on hover */
+}
+
+/* Stronger selector to override bootstrap .btn-link blue color and ensure svg inherits gray */
+.btn.btn-link.attribute-remove-btn,
+.attribute-remove-btn {
+  color: #6b7280 !important;
+}
+.attribute-remove-btn svg,
+.attribute-remove-btn :is(svg, path) {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+.confirm-popup {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 50;
+  min-width: 160px;
+}
+.confirm-popup .message {
+  margin-bottom: 8px;
+}
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.attribute-plain {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mainBody{
+	background-color: #fafafa;
+}
+
+.css-bg-example-1 .demo-content h1 {
+   padding-top: 100px;
+   padding-bottom: 100px;
+   padding-left: 1em;
+   padding-right: 1em;
+ }

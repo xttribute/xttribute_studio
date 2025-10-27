@@ -9,6 +9,7 @@ import AppMenu from '../Layout/AppMenu';
 import Sidebar from '../Layout/Sidebar';
 import Photo from '../Photo/Photo';
 import Keynote from '../Keynote/Keynote';
+import Attributes from '../Attributes/Attributes';
 
 function Xttribute(props) {
     props.updateTitle("Xttribute") 
@@ -73,14 +74,17 @@ function Xttribute(props) {
                          <Photo showError={props.showError} editable={"t"} />
                      ) : activeTab === 'keynotes' ? (
                          <Keynote showError={props.showError} editable={"t"} />
+                     ) : activeTab === 'attributes' ? (
+                         <Attributes showError={props.showError} editable={"t"} />
                      ) : (
                          // default content for Xttribute main area
                          <div>
                              {/* existing main Xttribute content can go here */}
                          </div>
                      )}
-                </div>
-            </div>
+                 </div>
+             </div>
+        
  
      )
  }

@@ -10,3 +10,6 @@ export const XU_ID = 'xu_id';
 export const U_TYPE ='u_type';
 export const U_NAME ='u_name';
 export const CDNURL ='https://storage.googleapis.com/xttribute_app/';
+
+// Theme colors (shared)
+export const PRIMARY_COLOR = '#1976d2';

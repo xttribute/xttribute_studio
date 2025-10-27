@@ -5,13 +5,14 @@ import logo from '../../medias/images/xttribute_logo.png';
 import KeyboardDoubleArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowLeftOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import BorderStyleOutlinedIcon from '@mui/icons-material/BorderStyleOutlined';
+import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined';
 import PhotoLibraryOutlinedIcon from '@mui/icons-material/PhotoLibraryOutlined';
 import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import { PRIMARY_COLOR } from '../../constants/apiConstants';
 
 function Sidebar({ expanded, onToggle, storedFile, name, log, onSidebarTabSelect }) {
-    // open the Xttributes parent by default so its children are visible without an extra click
-    const [openMenu, setOpenMenu] = React.useState('xttributes');
+    const [openMenu, setOpenMenu] = React.useState('assets');
     const handleParentClick = (menu) => {
         setOpenMenu(openMenu === menu ? null : menu);
     };
@@ -69,35 +70,42 @@ function Sidebar({ expanded, onToggle, storedFile, name, log, onSidebarTabSelect
             </button>
             <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                
-                {/* My Xttributes (parent with children) */}
+           
                 <div style={{ width: '100%' }}>
                     <div
                         style={{ padding: expanded ? '10px 20px' : '10px 0', cursor: 'pointer', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: expanded ? 'flex-start' : 'center', width: '100%' }}
-                        onClick={() => handleParentClick('xttributes')}
+                        onClick={() => handleParentClick('assets')}
                     >
-                        <BorderStyleOutlinedIcon style={{ fontSize: 20, marginRight: expanded ? 8 : 0, color: '#333' }} /> {expanded && 'Xttribute'}
-                        {expanded && (openMenu === 'xttributes' ? <ExpandMoreIcon fontSize="small" /> : <ChevronRightIcon fontSize="small" />)}
+                        <WebAssetOutlinedIcon style={{ fontSize: 20, marginRight: expanded ? 8 : 0, color: '#333' }} /> {expanded && 'Assets'}
+                        {expanded && (openMenu === 'assets' ? <ExpandMoreIcon fontSize="small" /> : <ChevronRightIcon fontSize="small" />)}
                     </div>
                     {/* When expanded show labels; when collapsed show icon-only buttons so Photos/Keynotes are visible by default */}
-                    {openMenu === 'xttributes' && (
+                    {openMenu === 'assets' && (
                         expanded ? (
                             <div style={{ marginLeft: 32, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                                 <div style={{ padding: '6px 0', cursor: 'pointer', fontSize: 13 }}
                                      onClick={() => onSidebarTabSelect && onSidebarTabSelect('photos')}>
-                                    <PhotoLibraryOutlinedIcon style={{ fontSize: 18, verticalAlign: 'middle', marginRight: 6, color: '#1976d2' }} /> Photos
+                                    <PhotoLibraryOutlinedIcon style={{ fontSize: 18, verticalAlign: 'middle', marginRight: 6, color: PRIMARY_COLOR }} /> Photos
                                 </div>
                                 <div style={{ padding: '6px 0', cursor: 'pointer', fontSize: 13 }}
                                      onClick={() => onSidebarTabSelect && onSidebarTabSelect('keynotes')}>
-                                    <SummarizeOutlinedIcon style={{ fontSize: 18, verticalAlign: 'middle', marginRight: 6, color: '#1976d2' }} /> Keynotes
+                                    <SummarizeOutlinedIcon style={{ fontSize: 18, verticalAlign: 'middle', marginRight: 6, color: PRIMARY_COLOR }} /> Keynotes
+                                </div>
+                                <div style={{ padding: '6px 0', cursor: 'pointer', fontSize: 13 }}
+                                     onClick={() => onSidebarTabSelect && onSidebarTabSelect('attributes')}>
+                                    <CategoryOutlinedIcon style={{ fontSize: 18, verticalAlign: 'middle', marginRight: 6, color: PRIMARY_COLOR }} /> Attributes
                                 </div>
                             </div>
                         ) : (
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 8 }}>
                                 <button onClick={() => onSidebarTabSelect && onSidebarTabSelect('photos')} title="Photos" style={{background:'none',border:'none',cursor:'pointer',padding:6}}>
-                                    <PhotoLibraryOutlinedIcon style={{ fontSize: 20, color: '#1976d2' }} />
+                                    <PhotoLibraryOutlinedIcon style={{ fontSize: 20, color: PRIMARY_COLOR }} />
                                 </button>
                                 <button onClick={() => onSidebarTabSelect && onSidebarTabSelect('keynotes')} title="Keynotes" style={{background:'none',border:'none',cursor:'pointer',padding:6}}>
-                                    <SummarizeOutlinedIcon style={{ fontSize: 20, color: '#1976d2' }} />
+                                    <SummarizeOutlinedIcon style={{ fontSize: 20, color: PRIMARY_COLOR }} />
+                                </button>
+                                <button onClick={() => onSidebarTabSelect && onSidebarTabSelect('attributes')} title="Attributes" style={{background:'none',border:'none',cursor:'pointer',padding:6}}>
+                                    <CategoryOutlinedIcon style={{ fontSize: 20, color: PRIMARY_COLOR }} />
                                 </button>
                             </div>
                         )
