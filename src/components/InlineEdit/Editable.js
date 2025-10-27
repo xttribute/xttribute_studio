@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Editable.css";
 import useXttribute from '../Xttribute/useXttribute';
 import { CiEdit } from "react-icons/ci";
 import {Row, Col, Container} from 'reactstrap';
+
 const Editable = ({
   text,
   type,
@@ -17,10 +18,13 @@ const Editable = ({
   ...props
 }) => {
   const [isEditing, setEditing] = useState(false);
+  const internalRef = useRef(null);
   //console.log(edit);
   useEffect(() => {
-    if (childRef && childRef.current && isEditing === true) {
-      childRef.current.focus();
+    // focus either provided childRef or internalRef when entering edit mode
+    const refToFocus = (childRef && childRef.current) ? childRef.current : internalRef.current;
+    if (refToFocus && isEditing === true) {
+      try { refToFocus.focus(); } catch (e) { /* ignore */ }
     }
   }, [isEditing, childRef]);
 
@@ -38,7 +42,18 @@ const Editable = ({
   };
  
   const handleSave = () => {
-      onSave(text, keyId);
+      // Read current value from childRef or internalRef so we save the live input content
+      const refToRead = (childRef && childRef.current) ? childRef.current : internalRef.current;
+      let newValue = text;
+      try {
+        if (refToRead) {
+          if (typeof refToRead.value !== 'undefined') newValue = refToRead.value;
+          else if (typeof refToRead.innerText !== 'undefined') newValue = refToRead.innerText;
+        }
+      } catch (e) {
+        // ignore
+      }
+      if (onSave) onSave(newValue, keyId);
       setEditing(false);
     };
 	if(edit==="t"){
@@ -49,14 +64,21 @@ const Editable = ({
 		          onBlur={() => handleSave()}
 		          onKeyDown={e => handleKeyDown(e, type)}
 		        >
-		          {children}
+		          {React.Children.map(children, (child) => {
+		            // attach provided childRef (from parent) or internalRef and autoFocus to the first valid child element so it receives focus immediately
+		            if (React.isValidElement(child)) {
+		              const refToAttach = childRef || internalRef;
+		              return React.cloneElement(child, { ref: refToAttach, autoFocus: true });
+		            }
+		            return child;
+		          })}
 		        </div>
 		      ) : (
 		        <Row>
 				<Col>
 				<div
 		          className={`rounded py-2 px-3 text-gray-700 leading-tight whitespace-pre-wrap hover:shadow-outline editable-${type}`}
-				  onClick={() => setEditing(true)}
+				  onMouseDown={(e) => { e.preventDefault(); setEditing(true); }}
 		        >
 		          <span className={`${boldText ? "textBold" : "text-gray-500"}`}>
 		            {text || placeholder || "Editable content"}
@@ -64,8 +86,8 @@ const Editable = ({
 				  </div>
 				  </Col>
 				  <Col xs={2}>
-				  <h5><CiEdit /></h5>
-		        	</Col>
+                    <h5 className="edit-icon"><CiEdit /></h5>
+                 	</Col>
 				</Row>	
 		      )}
 		    </section>
@@ -79,12 +101,18 @@ const Editable = ({
 		          onBlur={() => handleSave()}
 		          onKeyDown={e => handleKeyDown(e, type)}
 		        >
-		          {children}
+		          {React.Children.map(children, (child) => {
+		            if (React.isValidElement(child)) {
+		              const refToAttach = childRef || internalRef;
+		              return React.cloneElement(child, { ref: refToAttach, autoFocus: true });
+		            }
+		            return child;
+		          })}
 		        </div>
 		      ) : (
 		        <div
 		          className={`rounded py-2 px-3 text-gray-700 leading-tight whitespace-pre-wrap hover:shadow-outline editable-${type}`}
-				  onClick={() => setEditing(false)}
+				  onMouseDown={(e) => { e.preventDefault(); setEditing(true); }}
 		        >
 		          <span className={`${boldText ? "textBold" : "text-gray-500"}`}>
 		            {text || placeholder || "Editable content"}
