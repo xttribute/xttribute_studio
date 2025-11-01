@@ -9,15 +9,14 @@ export default function useXttribute() {
     	return xID
   	};
 	
-  	const [xid, setXID, destoryXID] = useState(getXID());
+  	const [xid, setXID] = useState(getXID());
 	const saveXID = xID => {
-	    //localStorage.setItem(ACCESS_TOKEN_NAME, userToken);
 		Cookies.set(X_ID, xID, { expires: 7 });
-	    setXID(xID);
+		setXID(xID);
 	};
 	
 	const removeXID = () => {
-			Cookies.remove(X_ID);
+		Cookies.remove(X_ID);
 	};
 	
 	const getXUID = () =>{
@@ -25,8 +24,8 @@ export default function useXttribute() {
 		const xUID = xu_id;
 		return xUID
 	};
-	const [xuid,setXUID, destoryXUID] = useState(getXUID());
-	const saveXUID =xUID => {
+	const [xuid, setXUID] = useState(getXUID());
+	const saveXUID = xUID => {
 		Cookies.set(XU_ID, xUID, { expires: 7});
 		setXUID(xUID);
 	};

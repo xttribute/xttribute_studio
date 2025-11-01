@@ -9,6 +9,7 @@ import Logout from "./components/Login/Logout";
 import AlertComponent from './components/AlertComponent/AlertComponent'; 
 import Xttribute from './components/Xttribute/Xttribute';  
 import Xttributes from './components/Xttribute/Xttributes';
+import NewXttribute from './components/Xttribute/NewXttribute';
 import RightSidebar from './components/Layout/RightSidebar';
 import Photo from './components/Photo/Photo';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -93,7 +94,8 @@ function App(props) {
 						<Route path="/login" element={<Login showID = {showID} showError={updateErrorMessage} updateTitle={updateTitle} setUName={setUName} setProfileImage={setProfileImage}/>}  />
 						<Route path="/logout" element={<Logout showID ={showID} showError={updateErrorMessage} updateTitle={updateTitle} setUName={setUName} setProfileImage={setProfileImage}/>} />
 						   <Route path="/xttribute" element={<Xttribute showError={updateErrorMessage} updateTitle={updateTitle} changeBG={changeBG}/>} />
-							<Route path="/xttributes" element={<Xttributes showError={updateErrorMessage} updateTitle={updateTitle}/>} />
+					<Route path="/newXttribute" element={<NewXttribute showError={updateErrorMessage} updateTitle={updateTitle} changeBG={changeBG}/>} />
+					<Route path="/xttributes" element={<Xttributes showError={updateErrorMessage} updateTitle={updateTitle}/>} />
 							<Route path="/photos" element={<Photo />} />
 					</Routes>
 		         </Col>
