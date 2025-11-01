@@ -69,5 +69,5 @@
   padding-right: 1em;
 }
 .mainBody{
-	background-color: #fafafa;
+	background-color: transparent; /* removed light gray background (#fafafa) */
 }

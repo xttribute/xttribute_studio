@@ -1,0 +1,81 @@
+.newThumbnailTitle{
+	background-color:#e9eef3;
+}
+
+/* Center the Create a xttribute label inside the new-attribute page */
+.new-attribute-page .form-label {
+    display: block; /* ensure text-align works */
+    text-align: center;
+    width: 100%;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+/* Add top padding to mainBody as requested */
+.mainBody {
+    padding-top: 5px;
+}
+
+#afterName {
+    /* Do not force a flex layout here — that causes Row/Col children to sit side-by-side.
+       Let Bootstrap handle row/col layout. Use block so rows stack vertically. */
+    display: block;
+    text-align: center; /* center inline content */
+}
+
+/* Add spacing between stacked rows inside #afterName */
+#afterName .row {
+    margin-bottom: 12px;
+}
+
+/* Center content inside each column (horizontal + vertical) while keeping columns full-width.
+   Using flex-direction: column preserves stacked children inside the column. Match both
+   explicit .col and generated classes like col-12 via attribute selector. */
+#afterName .col, #afterName [class*='col-'] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Ensure ResizableBox (and other block widgets) are centered */
+#afterName .resizebox {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Center tables so they're centered inside the column */
+#afterName table {
+    margin: 0 auto;
+}
+
+/* Ensure the thumbnail title is centered and constrained */
+#afterName .newThumbnailTitle {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+/* Debug/force override: ensure everything inside #afterName is centered.
+   This uses !important to override other styles while we diagnose issues. */
+#afterName, #afterName .container, #afterName .container-fluid {
+    display: block !important;
+    text-align: center !important;
+}
+
+#afterName .row, #afterName [class*='col-'], #afterName .col {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: column !important;
+}
+
+#afterName .resizebox, #afterName .newThumbnailTitle, #afterName table {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* If the ResizableBox sets an inline width, allow it but keep it centered */
+#afterName .resizebox {
+    max-width: 100% !important;
+}

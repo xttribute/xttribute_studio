@@ -10,6 +10,7 @@ import Sidebar from '../Layout/Sidebar';
 import Photo from '../Photo/Photo';
 import Keynote from '../Keynote/Keynote';
 import Attributes from '../Attributes/Attributes';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Xttribute(props) {
     props.updateTitle("Xttribute") 
@@ -19,46 +20,85 @@ function Xttribute(props) {
     const [state, setState] = useState({
         sMessage: null
     })
-    const {StoredFile} = useStoredFile();
+    const {StoredFile, setStoredFile, setStoredURL} = useStoredFile();
     // Sidebar expand/collapse state
     const [sidebarExpanded, setSidebarExpanded] = useState(false);
     const toggleSidebar = () => setSidebarExpanded(expanded => !expanded);
     // active in-page tab (default to 'photos' so Photo panel opens on load)
     const [activeTab, setActiveTab] = useState('photos');
+
+    // Use react-router location so client-side navigation with query params updates activeTab
+    const location = useLocation();
+    const navigate = useNavigate();
+    useEffect(() => {
+        try {
+            const params = new URLSearchParams(location.search || window.location.search);
+            const tab = params.get('tab');
+            if (tab && ['photos', 'keynotes', 'attributes'].includes(tab)) {
+                setActiveTab(tab);
+            }
+        } catch (e) {
+            // ignore malformed URL
+        }
+    }, [location.search]);
      // handle sidebar tab clicks (open an in-page tab instead of navigating)
      const handleSidebarTabSelect = (tab) => {
+         // update UI
          setActiveTab(tab);
+         try {
+             // update the URL query param so users can share/link to the selected tab
+             navigate(`?tab=${tab}`, { replace: true });
+         } catch (e) {
+             // ignore if navigation not available
+         }
      }
     const handleLoad = () =>{
-        if (xid!=null){
-            const payload={
-                "dbName": objDBName,
-                "collName": "xttribute",
-                "docContents": "{'_id':'" +xid + "'}",
-                "uKey" : "_id"
+        if (!xid) return;
+        const payload={
+            dbName: objDBName,
+            collName: 'xttribute',
+            docContents: "{'_id':'" + xid + "'}",
+            uKey: '_id'
+        };
+
+        axios.post(API_BASE_URL + '/getOneObject', payload)
+        .then(function (response) {
+            if (response.status !== 200) {
+                props.showError("Oops! system error, it is on us, we are working on it!");
+                return;
+            }
+
+            // Prefer explicit object payload if present; fall back to older doc_302 flag
+            const obj = response.data && response.data.object ? response.data.object : (response.data && response.data.doc ? response.data.doc : null);
+            if (obj) {
+                setName(obj.name || '');
+                setDescription(obj.description || '');
+                if (obj.uid) setXUID(obj.uid);
+
+                // update sidebar thumbnail if present
+                try {
+                    if (obj.thumbnail) {
+                        const thumb = obj.thumbnail;
+                        setStoredFile('<img src=' + CDNURL + thumb + ' class=imagePreview />');
+                        setStoredURL(CDNURL + thumb);
+                    } else {
+                        // clear previous stored file when none exists
+                        setStoredFile(null);
+                        setStoredURL(null);
+                    }
+                } catch (e) {
+                    // ignore
                 }
-            axios.post(API_BASE_URL+'/getOneObject', payload, )
-            .then(function (response) {
-                if(response.status === 200){			
-                    if(response.data.doc_302=== 'Document exists'){
-                        setName(response.data.object.name);
-                        setDescription(response.data.object.description);
-                        setXUID(response.data.object.uid);
-                    }                 
-                } else{
-                    props.showError("Oops! system error, it is on us, we are working on it!");
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });    
-        }
-        
-        
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     }
+    // Load xttribute data whenever xid changes (covers client-side navigation and redirects)
     useEffect(()=>{
          handleLoad();
-     }, []); 
+     }, [xid]); 
 	
 	const [name, setName] = useState("");
 	const [description, setDescription] = useState("");
