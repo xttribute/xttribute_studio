@@ -7,7 +7,11 @@
   box-sizing: border-box;
   color: #39739d;
   cursor: pointer;
-  display: inline-block;
+  /* Use inline-flex so icon and text stay on the same line and can be vertically centered */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px; /* small gap between text and icon */
+  flex-wrap: nowrap;
   font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
   font-size: 13px;
   font-weight: 400;
@@ -22,7 +26,7 @@
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: baseline;
-  white-space: nowrap;
+  white-space: nowrap; /* ensure text doesn't wrap onto multiple lines */
 }
 
 .button-8:hover,
@@ -41,6 +45,14 @@
   color: #2c5777;
 }
 
+/* ensure MUI endIcon doesn't add unexpected spacing or force wrapping */
+.button-8 .MuiButton-endIcon,
+.button-8 .endIcon {
+  margin-left: 6px;
+  display: inline-flex;
+  align-items: center;
+}
+
 .k-note {
 	width: 98%;
 	 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -55,7 +67,12 @@
 	background-color:#e9eef3;
 }
 .addButton{
-	text-align: center;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	text-align: left;
+	padding-left: 8px; /* small left padding so button isn't flush to edge */
+	margin-bottom: 8px;
 }
 
 .photoBox {
@@ -73,6 +90,8 @@
 }
 
 .photoList{
-	overflow:auto;
-	height:800px;
+	/* keep scrolling behaviour; remove fixed 100% height */
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto; /* Maintain scrollability */
 }

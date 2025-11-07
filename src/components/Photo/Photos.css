@@ -75,7 +75,36 @@ div.polaroid {
 	background-color:#e9eef3;
 	padding-top: 7px;
 	height: 40px;
+	/* align title text to left and vertically center */
+	text-align: left;
+	padding-left: 12px;
+	/* use default block layout so reactstrap Row/Col controls alignment */
+	display: block;
+	align-items: center;
+	/* remove justify-content to avoid conflicting with Row/Col */
+}
+/* ensure the first column (title) is left aligned */
+.photoTitle .col:first-child {
+	text-align: left;
+	padding-left: 0;
+	min-width: 0; /* allow flex children to shrink */
+}
+/* ensure the delete icon column is right-aligned and centered */
+.photoTitle .col:last-child {
+	text-align: right;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	padding-right: 8px;
 }
 .deleteTool{
 	margin-top:-7px;
+}
+/* truncate long photo titles with ellipsis */
+.photoTitle .titleText {
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 100%;
 }
