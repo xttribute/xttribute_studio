@@ -2,3 +2,110 @@
  --bs-modal-width: 80% !important;
 };
 
+/* Make header align and title take full width */
+.modalWidth .modal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.75rem 1rem;
+}
+
+/* Ensure the title uses the available horizontal space and is smaller */
+.modalWidth .modal-title {
+  flex: 1 1 auto; /* take remaining space */
+  margin: 0;
+  font-size: 14px; /* slightly smaller title */
+  font-weight: 600;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* keep it one line unless editing */
+}
+
+/* container wrapping the editable title and the pencil button */
+.modalWidth .modal-title .modal-title-editable {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+/* pencil button next to the title */
+.modal-title-edit-btn {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  cursor: pointer;
+  font-size: 16px; /* icon size */
+  line-height: 1;
+  position: static;
+  margin-left: 8px;
+}
+.modal-title-edit-btn:hover {
+  color: #333;
+  background: rgba(0,0,0,0.04);
+  border-radius: 4px;
+}
+.modal-title-edit-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(51,51,51,0.08);
+}
+
+/* When editing, allow wrapping and full width input */
+.modalWidth .modal-title .editable-text,
+.modalWidth .modal-title .editable-textarea,
+.modalWidth .modal-title .editable-textarea * {
+  width: 100%;
+  display: block;
+}
+
+/* Style the inline input field inside Editable so it fills the title area */
+.modalWidth .modal-title input[type="text"],
+.modalWidth .modal-title textarea,
+.modalWidth .modal-title .editable-input,
+.modalWidth .modal-title .form-control {
+  /* let the input grow to fill available space when button is present */
+  flex: 1 1 auto;
+  min-width: 0; /* allow shrinking inside flex container */
+  font-size: 14px;
+  padding: 6px 8px;
+  box-sizing: border-box;
+  border: none;          /* remove visible outline/border */
+  background: transparent; /* remove box background */
+  border-radius: 0;      /* no rounded box */
+}
+
+/* Reduce Modal body top padding a little to tighten layout */
+.modalWidth .modal-body {
+  padding-top: 0.6rem;
+}
+
+/* When title is too long and being edited, allow multi-line */
+.modalWidth .editable-text .textBold,
+.modalWidth .editable-text .text-gray-500 {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Ensure close button stays at end without wrapping the title */
+.modalWidth .btn-close {
+  margin-left: 12px;
+}
+
+/* ensure the editable input inside the title grows to available space when editing */
+.modalWidth .modal-title .editable-input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* ensure when the title input receives focus there's no outline shown */
+.modalWidth .modal-title input[type="text"]:focus,
+.modalWidth .modal-title .editable-input:focus,
+.modalWidth .modal-title .form-control:focus {
+  outline: none;
+  box-shadow: none;
+}

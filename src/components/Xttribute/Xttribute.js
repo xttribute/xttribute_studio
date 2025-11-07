@@ -103,6 +103,21 @@ function Xttribute(props) {
 	const [name, setName] = useState("");
 	const [description, setDescription] = useState("");
     
+    // Hide the global window scrollbar while this view is active so internal container handles scrolling
+    useEffect(() => {
+        if (typeof document !== 'undefined') {
+            const prevBodyOverflow = document.body.style.overflow;
+            const prevHtmlOverflow = document.documentElement.style.overflow;
+            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
+            return () => {
+                document.body.style.overflow = prevBodyOverflow || '';
+                document.documentElement.style.overflow = prevHtmlOverflow || '';
+            };
+        }
+        return undefined;
+    }, []);
+
     return(
         <div className="xttribute-main-layout" style={{display: 'flex', minHeight: '100vh'}}>
             {/* Sidebar */}
