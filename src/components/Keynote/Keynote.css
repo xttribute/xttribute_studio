@@ -46,10 +46,10 @@
 	 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	 text-align: center;
 	 margin-top: 15px;
-	 background-color: #e1ecf4;
+	 background-color: rgb(247, 248, 249);
 }
 .k-note-title{
-	background-color:#c3d7e5;
+	background-color:rgb(240, 241, 242);
 }
 .k-note-tool{
 	background-color:#e9eef3;
@@ -57,7 +57,20 @@
 .addButton{
 	text-align: center;
 }
+
+/* Ensure keynote container fills 95% of viewport and cannot be capped by other rules */
+.keynoteContainer {
+    height: 95vh !important;
+    max-height: 95vh !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
 .keynoteBox{
-	overflow: auto;
-	height: 800px;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
