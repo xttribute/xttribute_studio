@@ -1,0 +1,20 @@
+.add-button-plain {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 6px 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  vertical-align: middle !important;
+  line-height: 1.1 !important;
+  gap: 8px !important;
+}
+
+/* small helper for the load-more hint */
+.keynote-load-more {
+  text-align: center;
+  padding: 10px 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.2;
+}

@@ -124,7 +124,8 @@ function Xttribute(props) {
             <Sidebar expanded={sidebarExpanded} onToggle={toggleSidebar} storedFile={StoredFile} name={name} log={"Xttribute log"} onSidebarTabSelect={handleSidebarTabSelect} />
             {/* Main content: AppMenu always shown; selected tab content rendered below it */}
           
-                <div style={{padding: 16}}>
+                <div style={{padding: 16, width: '100%', overflowY: 'auto'}}>
+                  
                      {activeTab === 'photos' ? (
                          <Photo showError={props.showError} editable={"t"} />
                      ) : activeTab === 'keynotes' ? (

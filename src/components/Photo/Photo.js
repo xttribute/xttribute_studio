@@ -3,6 +3,7 @@ import Editable from '../InlineEdit/Editable';
 import {API_BASE_URL, objDBName, CDNURL} from '../../constants/apiConstants';
 import axios from 'axios';
 import './Photo.css';
+import '../common.css';
 import Button from '@mui/material/Button';
 import 'react-resizable/css/styles.css';
 import useXttribute from '../Xttribute/useXttribute';
@@ -718,7 +719,13 @@ function Photo(props) {
 
 	return (
 		<div id="photoListsContainer">
-			{isEdit ? <div className="addButton"><Button className ="button-8" endIcon={<PhotoLibraryOutlinedIcon  fontSize="small" />} onClick={handleOpen}>+ Photo</Button></div>:''}
+			{isEdit ? (
+			<div className="addButton">
+				<Button className="button-8 add-button-plain" endIcon={<PhotoLibraryOutlinedIcon fontSize="small" />} onClick={handleOpen} variant="text" disableElevation disableRipple>
+					+ Photo
+				</Button>
+			</div>
+		) : ''}
 			
 			<ul className="photoList" ref={photoListRef}>
 				<Photos records={records} onSaveTitle={savePTitle} ontextChange={handleChange} removePhoto={removePhoto} iValues={iValues} setIValues={setIValues} editable={props.editable} isEdit={isEdit} />
@@ -830,7 +837,6 @@ function Photo(props) {
 					}
 				}}>Force load (debug)</button>
 			</div>
-		  </div>
 		  */}
 
 		  {/* Add New Photo Modal */}

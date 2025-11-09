@@ -2,6 +2,10 @@
   height: 38px;
   width: 100%;
 }
+.editable-input:focus {
+  border: 1.5px solid #888888; /* gray border on focus, matches attribute input style */
+  outline: none;
+}
 .editable-textarea {
   height: 150px;
   overflow-y: auto;

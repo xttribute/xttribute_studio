@@ -12,3 +12,153 @@ div.container {
 .keynoteList {
 	margin-right: 0px;
 }
+
+/* Remove gutters for the date row so the input can span full column width */
+#k-note-date-row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+#k-note-date-row > .col,
+#k-note-date-row > [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.k-note-date-col {
+    /* allow reactstrap Col to size the column; remove hard max/min widths */
+    max-width: none;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    /* remove default column horizontal padding so child input can span whole column */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+/* ensure the Editable root stretches and has no padding */
+.k-note-date-col > section {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+/* ensure the editing wrapper div inside the section stretches */
+.k-note-date-col > section > div {
+    flex: 1 1 auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+/* force the input to occupy the full column width */
+.k-note-date-col .editable-input,
+.k-note-date-col .k-note-date-input,
+.k-note-date-col input.form-control {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    flex: 1 1 auto;
+    margin: 0 !important;
+}
+.k-note-date-input {
+    /* keep padding/font-size as before */
+    padding: 2px 6px;
+    font-size: 0.95em;
+}
+#k-note-created-col {
+    background-color: rgb(213, 235, 242);
+    padding: 5px 8px; /* keep some spacing */
+    color: #000; /* ensure readable text color */
+}
+
+/* Make the editing textarea match the static display div for notes */
+.editable-textarea-keynote,
+textarea.editable-textarea-keynote {
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 0.5rem 0.75rem; /* matches py-2 px-3 */
+    line-height: 1.25; /* matches leading-tight */
+    background: transparent;
+    border: none;
+    border-radius: 0.25rem; /* matches rounded */
+    resize: none; /* user cannot manually resize */
+    font-family: inherit;
+    font-size: inherit;
+    color: #374151; /* text-gray-700 */
+    white-space: pre-wrap;
+    overflow: hidden;
+}
+
+/* remove focus outline to match static appearance (but still keep keyboard focus visible if you want, adjust as needed) */
+textarea.editable-textarea-keynote:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Note display wrapper: collapsed shows internal scroll, expanded shows full content */
+.note-display {
+    position: relative;
+}
+
+/* collapsed static note (or editable root when not editing): fixed visible height with internal vertical scroll */
+.note-display .editable-textarea-keynote {
+    display: block;
+    max-height: 110px; /* visible area height for notes when collapsed (matches COLLAPSED_MAX) */
+    overflow-y: auto; /* enable vertical scroll when content exceeds area */
+    overflow-x: hidden;
+    white-space: pre-wrap; /* preserve newlines and allow wrapping */
+    line-height: 1.25;
+    padding-right: 0.25rem; /* avoid scrollbar overlapping text */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.note-display .editable-textarea-keynote::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    background: transparent; /* optional: hide background */
+}
+
+/* expanded state: show full content (no internal scroll) */
+.note-display.expanded .editable-textarea-keynote {
+    max-height: none;
+    overflow: visible;
+    -ms-overflow-style: auto;
+    scrollbar-width: auto;
+}
+
+/* Expand/collapse button positioned over the bottom-center of the note area */
+.note-display .note-expand-btn {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 6px;
+    z-index: 5;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+}
+
+.note-display .note-expand-btn .MuiIconButton-sizeSmall {
+    padding: 4px;
+}
+
+/* rotate the expand icon when the button has .expanded */
+.note-expand-btn .expand-icon {
+    transition: transform 0.18s ease;
+}
+.note-expand-btn.expanded .expand-icon {
+    transform: rotate(180deg);
+}
+
+/* Add extra space to k-note so its visible height is 50px taller */
+.k-note {
+    padding-bottom: 15px;
+}
