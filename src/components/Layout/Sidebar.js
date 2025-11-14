@@ -9,6 +9,7 @@ import WebAssetOutlinedIcon from '@mui/icons-material/WebAssetOutlined';
 import PhotoLibraryOutlinedIcon from '@mui/icons-material/PhotoLibraryOutlined';
 import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import HearingOutlinedIcon from '@mui/icons-material/HearingOutlined';
 import { PRIMARY_COLOR } from '../../constants/apiConstants';
 
 function Sidebar({ expanded, onToggle, storedFile, name, log, onSidebarTabSelect }) {
@@ -95,6 +96,10 @@ function Sidebar({ expanded, onToggle, storedFile, name, log, onSidebarTabSelect
                                      onClick={() => onSidebarTabSelect && onSidebarTabSelect('attributes')}>
                                     <CategoryOutlinedIcon style={{ fontSize: 18, verticalAlign: 'middle', marginRight: 6, color: PRIMARY_COLOR }} /> Attributes
                                 </div>
+                                <div style={{ padding: '6px 0', cursor: 'pointer', fontSize: 13 }}
+                                     onClick={() => onSidebarTabSelect && onSidebarTabSelect('sounds')}>
+                                    <HearingOutlinedIcon style={{ fontSize: 18, verticalAlign: 'middle', marginRight: 6, color: PRIMARY_COLOR }} /> Sounds
+                                </div>
                             </div>
                         ) : (
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 8 }}>
@@ -106,6 +111,9 @@ function Sidebar({ expanded, onToggle, storedFile, name, log, onSidebarTabSelect
                                 </button>
                                 <button onClick={() => onSidebarTabSelect && onSidebarTabSelect('attributes')} title="Attributes" style={{background:'none',border:'none',cursor:'pointer',padding:6}}>
                                     <CategoryOutlinedIcon style={{ fontSize: 20, color: PRIMARY_COLOR }} />
+                                </button>
+                                <button onClick={() => onSidebarTabSelect && onSidebarTabSelect('sounds')} title="Sounds" style={{background:'none',border:'none',cursor:'pointer',padding:6}}>
+                                    <HearingOutlinedIcon style={{ fontSize: 20, color: PRIMARY_COLOR }} />
                                 </button>
                             </div>
                         )

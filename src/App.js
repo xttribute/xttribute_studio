@@ -12,6 +12,7 @@ import Xttributes from './components/Xttribute/Xttributes';
 import NewXttribute from './components/Xttribute/NewXttribute';
 import RightSidebar from './components/Layout/RightSidebar';
 import Photo from './components/Photo/Photo';
+import Sound from './components/Sound/sound';
 import 'bootstrap/dist/css/bootstrap.min.css';
 function App(props) {
 	const [title, updateTitle] = useState(null);
@@ -97,6 +98,7 @@ function App(props) {
 					<Route path="/newXttribute" element={<NewXttribute showError={updateErrorMessage} updateTitle={updateTitle} changeBG={changeBG}/>} />
 					<Route path="/xttributes" element={<Xttributes showError={updateErrorMessage} updateTitle={updateTitle}/>} />
 							<Route path="/photos" element={<Photo />} />
+							<Route path="/sounds" element={<Sound />} />
 					</Routes>
 		         </Col>
 	

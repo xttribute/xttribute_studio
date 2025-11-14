@@ -10,6 +10,7 @@ import Sidebar from '../Layout/Sidebar';
 import Photo from '../Photo/Photo';
 import Keynote from '../Keynote/Keynote';
 import Attributes from '../Attributes/Attributes';
+import Sound from '../Sound/sound';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function Xttribute(props) {
@@ -34,7 +35,7 @@ function Xttribute(props) {
         try {
             const params = new URLSearchParams(location.search || window.location.search);
             const tab = params.get('tab');
-            if (tab && ['photos', 'keynotes', 'attributes'].includes(tab)) {
+            if (tab && ['photos', 'keynotes', 'attributes', 'sounds'].includes(tab)) {
                 setActiveTab(tab);
             }
         } catch (e) {
@@ -130,6 +131,8 @@ function Xttribute(props) {
                          <Photo showError={props.showError} editable={"t"} />
                      ) : activeTab === 'keynotes' ? (
                          <Keynote showError={props.showError} editable={"t"} />
+                     ) : activeTab === 'sounds' ? (
+                         <Sound showError={props.showError} editable={"t"} />
                      ) : activeTab === 'attributes' ? (
                          <Attributes showError={props.showError} editable={"t"} />
                      ) : (
