@@ -11,12 +11,14 @@ import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import HearingOutlinedIcon from '@mui/icons-material/HearingOutlined';
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
+import AutoModeOutlinedIcon from '@mui/icons-material/AutoModeOutlined';
 import { PRIMARY_COLOR } from '../../constants/apiConstants';
 
 function Sidebar({ expanded, onToggle, storedFile, name, log, onSidebarTabSelect }) {
-    const [openMenu, setOpenMenu] = React.useState('assets');
+    // allow multiple parent menus to be open at once
+    const [openMenu, setOpenMenu] = React.useState(['gens']);
     const handleParentClick = (menu) => {
-        setOpenMenu(openMenu === menu ? null : menu);
+        setOpenMenu((prev) => (prev.includes(menu) ? prev.filter((m) => m !== menu) : [...prev, menu]));
     };
     // keep navigate require if other code expects it; not used here
     const navigate = require('react-router-dom').useNavigate();
@@ -79,10 +81,10 @@ function Sidebar({ expanded, onToggle, storedFile, name, log, onSidebarTabSelect
                         onClick={() => handleParentClick('assets')}
                     >
                         <WebAssetOutlinedIcon style={{ fontSize: 20, marginRight: expanded ? 8 : 0, color: '#333' }} /> {expanded && 'Assets'}
-                        {expanded && (openMenu === 'assets' ? <ExpandMoreIcon fontSize="small" /> : <ChevronRightIcon fontSize="small" />)}
+                        {expanded && (openMenu.includes('assets') ? <ExpandMoreIcon fontSize="small" /> : <ChevronRightIcon fontSize="small" />)}
                     </div>
                     {/* When expanded show labels; when collapsed show icon-only buttons so Photos/Keynotes are visible by default */}
-                    {openMenu === 'assets' && (
+                    {openMenu.includes('assets') && (
                         expanded ? (
                             <div style={{ marginLeft: 32, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                                 <div style={{ padding: '6px 0', cursor: 'pointer', fontSize: 13 }}
@@ -122,6 +124,32 @@ function Sidebar({ expanded, onToggle, storedFile, name, log, onSidebarTabSelect
                                 </button>
                                 <button onClick={() => onSidebarTabSelect && onSidebarTabSelect('videos')} title="Videos" style={{background:'none',border:'none',cursor:'pointer',padding:6}}>
                                     <VideocamOutlinedIcon style={{ fontSize: 20, color: PRIMARY_COLOR }} />
+                                </button>
+                            </div>
+                        )
+                    )}
+
+                    {/* Gens menu - same level as Assets */}
+                    <div
+                        style={{ padding: expanded ? '10px 20px' : '10px 0', cursor: 'pointer', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: expanded ? 'flex-start' : 'center', width: '100%' }}
+                        onClick={() => handleParentClick('gens')}
+                    >
+                        <AutoModeOutlinedIcon style={{ fontSize: 20, marginRight: expanded ? 8 : 0, color: '#333' }} /> {expanded && 'Gens'}
+                        {expanded && (openMenu.includes('gens') ? <ExpandMoreIcon fontSize="small" /> : <ChevronRightIcon fontSize="small" />)}
+                    </div>
+
+                    {openMenu.includes('gens') && (
+                        expanded ? (
+                            <div style={{ marginLeft: 32, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                                <div style={{ padding: '6px 0', cursor: 'pointer', fontSize: 13 }}
+                                     onClick={() => onSidebarTabSelect && onSidebarTabSelect('gens_products')}>
+                                    <CategoryOutlinedIcon style={{ fontSize: 18, verticalAlign: 'middle', marginRight: 6, color: PRIMARY_COLOR }} /> Products
+                                </div>
+                            </div>
+                        ) : (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 8 }}>
+                                <button onClick={() => onSidebarTabSelect && onSidebarTabSelect('gens_products')} title="Products" style={{background:'none',border:'none',cursor:'pointer',padding:6}}>
+                                    <CategoryOutlinedIcon style={{ fontSize: 20, color: PRIMARY_COLOR }} />
                                 </button>
                             </div>
                         )
