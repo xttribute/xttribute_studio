@@ -4,6 +4,7 @@ export const LIST_TYPE ='x_list_type';
 export const USER_ID = 'user_id';
 export const strDBName ='xtrStructure';
 export const objDBName ='xtrObject';
+export const gensDBName ='xtrGens'
 export const X_ID ='x_id';
 export const U_ID ='u_id';
 export const XU_ID = 'xu_id';

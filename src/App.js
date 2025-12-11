@@ -72,53 +72,53 @@ function App(props) {
  	return(
  		<div class="css-bg-example-1">
  		  <div class="demo-wrap">
-		 {/*
-		   <img
-		      class="demo-bg"
-		      src={bg}
-		      alt=""
-		    />*/}
-		  <div class="demo-content">
-		{/* <Header userID={id} showUID ={showID} menu={menu} showMenu={showMenu}/> */}
-		<main className="my-5" style={{marginRight: rightSidebarExpanded ? 200 : 60}}>
-		     <Container className="px-0 mainBody">
-			 <Row>
-			 <AlertComponent errorMessage={errorMessage} hideError={updateErrorMessage}/>
-			 </Row>
-		       <Row
-		         g-0
-		       >
-		         <Col
-		         >
-				 <Routes>
-				 		<Route path="/registration" element={<Registration showError={updateErrorMessage} updateTitle={updateTitle}/>}  />
-						<Route path="/login" element={<Login showID = {showID} showError={updateErrorMessage} updateTitle={updateTitle} setUName={setUName} setProfileImage={setProfileImage}/>}  />
-						<Route path="/logout" element={<Logout showID ={showID} showError={updateErrorMessage} updateTitle={updateTitle} setUName={setUName} setProfileImage={setProfileImage}/>} />
-						   <Route path="/xttribute" element={<Xttribute showError={updateErrorMessage} updateTitle={updateTitle} changeBG={changeBG}/>} />
-					<Route path="/newXttribute" element={<NewXttribute showError={updateErrorMessage} updateTitle={updateTitle} changeBG={changeBG}/>} />
-					<Route path="/xttributes" element={<Xttributes showError={updateErrorMessage} updateTitle={updateTitle}/>} />
-							<Route path="/photos" element={<Photo />} />
-							<Route path="/sounds" element={<Sound />} />
-					</Routes>
-		         </Col>
-	
-		       </Row>
-		     </Container>
-		   </main>
-		   <RightSidebar
-                         expanded={rightSidebarExpanded}
-                         onToggle={toggleRightSidebar}
-                         userID={id}
-                         menu={menu}
-						showUID ={showID}showMenu={showMenu}
-						uName={uName}
-						profileImage={profileImage}
+ 		{/*
+ 		   <img
+ 		      class="demo-bg"
+ 		      src={bg}
+ 		      alt=""
+ 		    />*/}
+ 		  <div class="demo-content">
+ 		{/* <Header userID={id} showUID ={showID} menu={menu} showMenu={showMenu}/> */}
+ 		<main className="my-5" style={{marginRight: rightSidebarExpanded ? 200 : 60}}>
+ 		     <Container className="px-0 mainBody">
+ 			 <Row>
+ 			 <AlertComponent errorMessage={errorMessage} hideError={updateErrorMessage}/>
+ 			 </Row>
+ 		       <Row
+ 		         g-0
+ 		       >
+ 		         <Col
+ 		         >
+ 			 <Routes>
+ 					<Route path="/registration" element={<Registration showError={updateErrorMessage} updateTitle={updateTitle}/>}  />
+ 					<Route path="/login" element={<Login showID = {showID} showError={updateErrorMessage} updateTitle={updateTitle} setUName={setUName} setProfileImage={setProfileImage}/>}  />
+ 					<Route path="/logout" element={<Logout showID ={showID} showError={updateErrorMessage} updateTitle={updateTitle} setUName={setUName} setProfileImage={setProfileImage}/>} />
+ 					   <Route path="/xttribute" element={<Xttribute showError={updateErrorMessage} updateTitle={updateTitle} changeBG={changeBG}/>} />
+ 					<Route path="/newXttribute" element={<NewXttribute showError={updateErrorMessage} updateTitle={updateTitle} changeBG={changeBG}/>} />
+ 					<Route path="/xttributes" element={<Xttributes showError={updateErrorMessage} updateTitle={updateTitle}/>} />
+ 							<Route path="/photos" element={<Photo />} />
+ 							<Route path="/sounds" element={<Sound />} />
+ 				</Routes>
+ 		         </Col>
+ 		
+ 		       </Row>
+ 		     </Container>
+ 		   </main>
+ 		   <RightSidebar
+                          expanded={rightSidebarExpanded}
+                          onToggle={toggleRightSidebar}
+                          userID={id}
+                          menu={menu}
+ 				showUID ={showID}showMenu={showMenu}
+ 				uName={uName}
+ 				profileImage={profileImage}
  
-                     />
-		   </div>
-		  </div>
-		  </div>
-  );
- };
- 
- export default App;
+                      />
+ 		   </div>
+ 		  </div>
+ 		  </div>
+   );
+  };
+  
+  export default App;

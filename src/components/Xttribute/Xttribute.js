@@ -12,6 +12,7 @@ import Keynote from '../Keynote/Keynote';
 import Attributes from '../Attributes/Attributes';
 import Sound from '../Sound/sound';
 import Video from '../Video/video';
+import Product from '../Product/product';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function Xttribute(props) {
@@ -36,7 +37,8 @@ function Xttribute(props) {
         try {
             const params = new URLSearchParams(location.search || window.location.search);
             const tab = params.get('tab');
-            if (tab && ['photos', 'keynotes', 'attributes', 'sounds', 'videos'].includes(tab)) {
+            // accept 'products' as well (gens -> products)
+            if (tab && ['photos', 'keynotes', 'attributes', 'sounds', 'videos', 'products'].includes(tab)) {
                 setActiveTab(tab);
             }
         } catch (e) {
@@ -46,10 +48,12 @@ function Xttribute(props) {
      // handle sidebar tab clicks (open an in-page tab instead of navigating)
      const handleSidebarTabSelect = (tab) => {
          // update UI
-         setActiveTab(tab);
+         // Sidebar sends 'gens_products' for the Gens -> Products menu; map it to 'products'
+         const mapped = tab === 'gens_products' ? 'products' : tab;
+         setActiveTab(mapped);
          try {
              // update the URL query param so users can share/link to the selected tab
-             navigate(`?tab=${tab}`, { replace: true });
+             navigate(`?tab=${mapped}`, { replace: true });
          } catch (e) {
              // ignore if navigation not available
          }
@@ -136,6 +140,8 @@ function Xttribute(props) {
                          <Sound showError={props.showError} editable={"t"} />
                      ) : activeTab === 'videos' ? (
                          <Video showError={props.showError} editable={"t"} />
+                     ) : activeTab === 'products' ? (
+                         <Product showError={props.showError} editable={"t"} name={name} />
                      ) : activeTab === 'attributes' ? (
                          <Attributes showError={props.showError} editable={"t"} />
                      ) : (
